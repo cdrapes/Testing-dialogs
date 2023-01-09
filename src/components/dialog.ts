@@ -17,14 +17,13 @@ export class Dialog extends LitElement {
 
   toggleDialog() {
     this.isOpen = !this.isOpen;
-    console.log(this.dialog);
     this.dialog.showModal();
   }
 
   render() {
     return html`
     <div>
-      <button @click=${() => this.toggleDialog()} id="btn">Open Dialog</button>
+      <button @click=${this.toggleDialog} id="btn">Open Dialog</button>
       <dialog id="dialog">
         <p>This is my dialog</p>
         <form method="dialog">
