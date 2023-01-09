@@ -5,6 +5,22 @@
     <script type="module" src="/src/index.js"></script>
   </head>
   <body>
+    <h1>Modal dialog</h1>
     <ds-dialog></ds-dialog>
+    <br />
+    <h1>Modal dialog (fixed positioning)</h1>
+    <h2></h2>
+    <ds-dialog>
+      <!-- tooltip -->
+      <div slot="content" >
+        <p>YOLO</p>
+      <ds-tooltip positioning="fixed">
+        <p>tooltip 1</p>
+        <ds-tooltip>
+          <p>tooltip 2</p>
+        </ds-tooltip>
+      </ds-tooltip>
+    </div>
+    </ds-dialog>
   </body>
 </html>

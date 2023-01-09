@@ -1,5 +1,6 @@
 import { LitElement, css, html, PropertyValues } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
+import './tooltip';
 
 /**
  * A Dialog Element.
@@ -15,6 +16,23 @@ export class Dialog extends LitElement {
   @query('#dialog')
   dialog: HTMLDialogElement;
 
+  static styles = css`
+    .dialog__content {
+      display: flex;
+    }
+    .cta {
+      margin: 10em;
+    }
+
+    :host{
+      margin: auto;
+    }
+
+    #btn{
+      font-size: 20px;
+    }
+  `;
+
   toggleDialog() {
     this.isOpen = !this.isOpen;
     this.dialog.showModal();
@@ -23,12 +41,29 @@ export class Dialog extends LitElement {
   render() {
     return html`
     <div>
-      <button @click=${this.toggleDialog} id="btn">Open Dialog</button>
+      <button @click=${this.toggleDialog} id="btn">
+        <slot name="title">Click me</slot>
+      </button>
       <dialog id="dialog">
-        <p>This is my dialog</p>
-        <form method="dialog">
-          <button>OK</button>
-        </form>
+        <slot name="content" class="dialog__content">
+          <p>This is my dialog</p>
+
+          <!-- tooltip -->
+          <ds-tooltip>
+            <p>tooltip 1</p>
+            <ds-tooltip>
+              <p>tooltip 2</p>
+              <p>woah</p>
+            </ds-tooltip>
+          </ds-tooltip>
+        </slot>
+
+        <!-- close button -->
+        <slot name="footer" class="cta">
+          <form method="dialog">
+            <button>OK</button>
+          </form>
+        </slot>
       </dialog>
     </div>
     `;
