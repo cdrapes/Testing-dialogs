@@ -1,15 +1,12 @@
-import {
-  computePosition,
-  flip
-} from "@floating-ui/dom";
+import { computePosition, flip } from "@floating-ui/dom";
 import { css, html, LitElement } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
 
-@customElement("ds-tooltip")
-export class Tooltip extends LitElement {
+@customElement("ds-popup")
+export class Popup extends LitElement {
   @state()
-  isHovering: boolean;
+  showPopup: boolean;
 
   @property()
   positioning: "absolute" | "fixed" = "absolute";
@@ -31,21 +28,18 @@ export class Tooltip extends LitElement {
     .content {
       /* use position fixed to paint over an overflow hidden parent */
       /* position: fixed; */
-      margin: 0;
-      padding: 5px;
-      position: absolute;
+      overflow: hidden;
+      transform: translateZ(0);
     }
   `;
 
-  enterHandler() {
+  clickHandler() {
     console.log("is entering", this.invoker.style);
     this.computeTooltipPosition();
-    this.isHovering = true;
-  }
-
-  leaveHandler() {
-    console.log("is leaving");
-    this.isHovering = false;
+    this.showPopup = true;
+    document.addEventListener("mousedown", () => (this.showPopup = false), {
+      once: true,
+    });
   }
 
   computeTooltipPosition() {
@@ -63,25 +57,15 @@ export class Tooltip extends LitElement {
 
   render() {
     const displayTooltip = {
-      visibility: this.isHovering ? "visible" : "hidden",
+      visibility: this.showPopup ? "visible" : "hidden",
       position: this.positioning,
     };
     return html`
-      <div
-        class="invoker"
-        @mouseenter=${this.enterHandler}
-        @mouseleave=${this.leaveHandler}
-      >
+      <div class="invoker" @click=${this.clickHandler}>
         <dialog class="content" open style=${styleMap(displayTooltip)}>
-          <slot>My tooltip</slot>
+          <slot>Default content</slot>
         </dialog>
       </div>
     `;
-  }
-}
-
-declare global {
-  interface HTMLElementTagNameMap {
-    "ds-tooltip": Tooltip;
   }
 }
