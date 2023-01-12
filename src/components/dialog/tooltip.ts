@@ -1,13 +1,11 @@
-import {
-  computePosition,
-  flip
-} from "@floating-ui/dom";
-import { css, html, LitElement } from "lit";
+import { computePosition, flip } from "@floating-ui/dom";
+import { css, html, LitElement, PropertyValues } from "lit";
 import { customElement, property, query, state } from "lit/decorators.js";
 import { styleMap } from "lit/directives/style-map.js";
+import { PositioningMixin } from "../../mixins/positioning.mixin";
 
 @customElement("ds-tooltip")
-export class Tooltip extends LitElement {
+export class Tooltip extends PositioningMixin(LitElement) {
   @state()
   isHovering: boolean;
 
@@ -39,7 +37,6 @@ export class Tooltip extends LitElement {
 
   enterHandler() {
     console.log("is entering", this.invoker.style);
-    this.computeTooltipPosition();
     this.isHovering = true;
   }
 
@@ -48,17 +45,11 @@ export class Tooltip extends LitElement {
     this.isHovering = false;
   }
 
-  computeTooltipPosition() {
-    const { invoker, content } = this;
-    computePosition(invoker, content, {
-      placement: "right",
-      middleware: [flip()],
-    }).then(({ x, y }) => {
-      Object.assign(content.style, {
-        left: `${x}px`,
-        top: `${y}px`,
-      });
-    });
+  // this is crazy
+  willUpdate(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has("isHovering") && this.isHovering) {
+      this.computeTooltipPosition(this.invoker, this.content);
+    }
   }
 
   render() {

@@ -8,9 +8,9 @@ export class Container extends LitElement {
   @state()
   showPopoverComponents = true;
 
-  dialogContainer = html` 
-  <h1>Dialog Element Components</h1>
-  <h2>Modal dialog</h2>
+  dialogContainer = html`
+    <h1>Dialog Element Components</h1>
+    <h2>Modal dialog</h2>
     <ds-dialog></ds-dialog>
 
     <br />
@@ -38,10 +38,16 @@ export class Container extends LitElement {
         <ds-tooltip positioning="fixed"><p>tooltip</p></ds-tooltip>
       </div>
     </ds-popup>
-    <hr>
-    `;
+    <hr />
+  `;
 
-  popoverContainer = html`<div><h1>Popover Element Components</div>`;
+  popoverContainer = html` <div>
+    <h1>Popover Element Components</h1>
+
+    <!-- Tooltip -->
+    <h2>Tooltip</h2>
+    <po-tooltip></po-tooltip>
+  </div>`;
 
   protected render(): unknown {
     const { dialogContainer, showPopoverComponents } = this;
