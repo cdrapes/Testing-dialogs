@@ -47,6 +47,10 @@ export class Container extends LitElement {
     <!-- Tooltip -->
     <h2>Tooltip</h2>
     <po-tooltip></po-tooltip>
+
+    <!-- Modal -->
+    <h2>Modal with Tooltip</h2>
+    <po-modal></po-modal>
   </div>`;
 
   protected render(): unknown {

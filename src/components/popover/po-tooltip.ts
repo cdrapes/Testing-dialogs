@@ -20,8 +20,9 @@ export class POTooltip extends PositioningMixin(LitElement) {
 
   enterHandler() {
     this.computeTooltipPosition(this.invoker, this.content);
-    this.content.showPopover();
-    if (!this.content.matches(":open")) this.content.showPopOver();
+    if (!this.content.matches(":open")) {
+      this.content.showPopover();
+    }
   }
 
   leaveHandler(e) {
@@ -36,9 +37,14 @@ export class POTooltip extends PositioningMixin(LitElement) {
         @pointerenter=${this.enterHandler}
         @pointerleave=${this.leaveHandler}
       >
-        <button popoverhovertarget="tooltip" class="invoker">CLICK ME</button>
+        <!-- todo: check if query can be used with a slot - will save need for a wrapper -->
+        <span class="invoker">
+          <slot>
+            <button>HOVER</button>
+          </slot>
+        </span>
         <div class="content" id="tooltip" popover="[manual]">
-          I am a tooltip!
+          <slot> I am a tooltip! </slot>
         </div>
       </span>
     `;
