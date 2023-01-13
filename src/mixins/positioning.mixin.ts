@@ -22,7 +22,7 @@ export const PositioningMixin = <T extends Constructor<LitElement>>(
       const { placement } = this;
       computePosition(invoker, content, {
         placement,
-        middleware: [flip()],
+        // middleware: [flip()],
       }).then(({ x, y }) => {
         Object.assign(content.style, {
           left: `${x}px`,

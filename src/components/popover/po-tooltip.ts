@@ -19,7 +19,10 @@ export class POTooltip extends PositioningMixin(LitElement) {
   `;
 
   enterHandler() {
-    this.computeTooltipPosition(this.invoker, this.content);
+    const slot = this.shadowRoot.querySelector("slot");
+    const slots = slot.assignedElements({ flatten: true });
+    const invoker = slots[0];
+    this.computeTooltipPosition(invoker, this.content);
     if (!this.content.matches(":open")) {
       this.content.showPopover();
     }
@@ -38,11 +41,9 @@ export class POTooltip extends PositioningMixin(LitElement) {
         @pointerleave=${this.leaveHandler}
       >
         <!-- todo: check if query can be used with a slot - will save need for a wrapper -->
-        <span class="invoker">
-          <slot>
-            <button>HOVER</button>
-          </slot>
-        </span>
+        <slot class="invoker">
+          <button>HOVER</button>
+        </slot>
         <div class="content" id="tooltip" popover="[manual]">
           <slot> I am a tooltip! </slot>
         </div>

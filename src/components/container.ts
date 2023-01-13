@@ -1,4 +1,4 @@
-import { html, LitElement } from "lit";
+import { css, html, LitElement } from "lit";
 import { customElement, state } from "lit/decorators.js";
 
 @customElement("ds-container")
@@ -7,6 +7,17 @@ export class Container extends LitElement {
   showDialogComponents = false;
   @state()
   showPopoverComponents = true;
+
+  @state()
+  counter: number = 0;
+
+  static styles = css``;
+
+  increaseCounterHandler() {
+    this.counter = this.counter + 1;
+    console.log("counter increased: ", this.counter);
+    this.requestUpdate();
+  }
 
   dialogContainer = html`
     <h1>Dialog Element Components</h1>
@@ -41,21 +52,31 @@ export class Container extends LitElement {
     <hr />
   `;
 
-  popoverContainer = html` <div>
+  popoverContainer = () => html` <div>
     <h1>Popover Element Components</h1>
 
     <!-- Tooltip -->
     <h2>Tooltip</h2>
     <po-tooltip></po-tooltip>
 
-    <!-- Modal -->
-    <h2>Modal with Tooltip</h2>
-    <po-modal></po-modal>
+    <!-- Modal with Events -->
+    <h2>Modal with Events + Tooltip</h2>
+    <po-modal @increase-counter=${this.increaseCounterHandler}></po-modal>
+    <p>Counter: ${this.counter}</p>
+
+    <!-- Popup -->
+    <h2>Popup</h2>
+    
+
+    <!-- Nested Popup -->
+    <h2>Nested Popup</h2>
+
+    <!-- Nested Popup -->
+    <h2>Nested Popup with Tooltips</h2>
   </div>`;
 
   protected render(): unknown {
     const { dialogContainer, showPopoverComponents } = this;
-    // return display === "dialog" ? dialogContainer : popoverContainer;
     return html`
       <h1 style="text-align: center">
         Investigating alternative overlay systems
@@ -85,7 +106,7 @@ export class Container extends LitElement {
       </label>
       <hr />
       ${this.showDialogComponents ? dialogContainer : null}
-      ${showPopoverComponents ? this.popoverContainer : null}
+      ${showPopoverComponents ? this.popoverContainer() : null}
     `;
   }
 }
