@@ -1,5 +1,5 @@
 import { css, html, LitElement } from "lit";
-import { customElement, query } from "lit/decorators.js";
+import { customElement, query, state } from "lit/decorators.js";
 import { PositioningMixin } from "../../mixins/positioning.mixin";
 
 @customElement("po-modal")
@@ -8,6 +8,11 @@ export class POModal extends PositioningMixin(LitElement) {
   dialogEl: HTMLDialogElement;
   @query("#increase-btn")
   btn: HTMLButtonElement;
+  @query("#info-tooltip")
+  tooltip: HTMLSpanElement;
+
+  @state()
+  showTooltip: boolean;
 
   static styles = css`
     #info-tooltip {
@@ -15,7 +20,7 @@ export class POModal extends PositioningMixin(LitElement) {
       top: 0;
       right: 0;
       margin: 4px;
-      cursor: default
+      cursor: default;
     }
   `;
 
@@ -39,8 +44,8 @@ export class POModal extends PositioningMixin(LitElement) {
       <dialog>
         <slot>
           <p>My Dialog</p>
-          <po-tooltip>
-            <span id="info-tooltip" class="material-symbols-outlined"
+          <po-tooltip hover>
+            <span slot="invoker" id="info-tooltip" class="material-symbols-outlined"
               >info</span
             >
           </po-tooltip>

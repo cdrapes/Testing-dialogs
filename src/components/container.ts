@@ -55,9 +55,16 @@ export class Container extends LitElement {
   popoverContainer = () => html` <div>
     <h1>Popover Element Components</h1>
 
-    <!-- Tooltip -->
-    <h2>Tooltip</h2>
+    <!-- Tooltip - hover -->
+    <h2>Tooltip (hover)</h2>
     <po-tooltip></po-tooltip>
+
+    <!-- Tooltip - click -->
+    <h2>Tooltip (click)</h2>
+    <po-tooltip trigger="click">
+      <button slot="invoker">click me</button>
+      <div slot="content">tool tippin</div>
+    </po-tooltip>
 
     <!-- Modal with Events -->
     <h2>Modal with Events + Tooltip</h2>
@@ -66,7 +73,6 @@ export class Container extends LitElement {
 
     <!-- Popup -->
     <h2>Popup</h2>
-    
 
     <!-- Nested Popup -->
     <h2>Nested Popup</h2>
