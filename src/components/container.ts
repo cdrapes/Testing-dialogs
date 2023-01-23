@@ -4,9 +4,9 @@ import { customElement, state } from "lit/decorators.js";
 @customElement("ds-container")
 export class Container extends LitElement {
   @state()
-  showDialogComponents = false;
+  showDialogComponents = true;
   @state()
-  showPopoverComponents = true;
+  showPopoverComponents = false;
 
   @state()
   counter: number = 0;
@@ -21,8 +21,17 @@ export class Container extends LitElement {
 
   dialogContainer = html`
     <h1>Dialog Element Components</h1>
+
+    <h2>Tooltip</h2>
+    <ds-tooltip>
+      <button slot="invoker">hover me</button>
+      <div slot="content">content</div>
+    </ds-tooltip>
+
     <h2>Modal dialog</h2>
-    <ds-dialog></ds-dialog>
+    <ds-dialog>
+      
+    </ds-dialog>
 
     <br />
 

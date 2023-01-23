@@ -37,6 +37,10 @@ export class Tooltip extends PositioningMixin(LitElement) {
 
   enterHandler() {
     console.log("is entering", this.invoker.style);
+    const slot = this.shadowRoot.querySelector("slot");
+    const slots = slot.assignedElements({ flatten: true });
+    const invoker = slots[0];
+    this.computeTooltipPosition(invoker, this.content);
     this.isHovering = true;
   }
 
@@ -45,28 +49,25 @@ export class Tooltip extends PositioningMixin(LitElement) {
     this.isHovering = false;
   }
 
-  // this is crazy
-  willUpdate(changedProperties: PropertyValues<this>) {
-    if (changedProperties.has("isHovering") && this.isHovering) {
-      this.computeTooltipPosition(this.invoker, this.content);
-    }
-  }
-
   render() {
     const displayTooltip = {
       visibility: this.isHovering ? "visible" : "hidden",
       position: this.positioning,
     };
     return html`
-      <div
-        class="invoker"
+      <slot
         @mouseenter=${this.enterHandler}
         @mouseleave=${this.leaveHandler}
+        name="invoker"
+        class="invoker"
       >
-        <dialog class="content" open style=${styleMap(displayTooltip)}>
-          <slot>My tooltip</slot>
-        </dialog>
-      </div>
+        <button>default invoker</button>
+      </slot>
+      <dialog class="content" open style=${styleMap(displayTooltip)}>
+        <slot name="content">
+          <div>My tooltip</div>
+        </slot>
+      </dialog>
     `;
   }
 }
