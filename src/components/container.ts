@@ -58,6 +58,13 @@ export class Container extends LitElement {
         <ds-tooltip positioning="fixed"><p>tooltip</p></ds-tooltip>
       </div>
     </ds-popup>
+
+    <!-- Nav -->
+    <h2>Side Nav</h2>
+    <ds-sidenav></ds-sidenav>
+
+    <!-- Nested Nav -->
+
     <hr />
   `;
 
@@ -93,6 +100,14 @@ export class Container extends LitElement {
   protected render(): unknown {
     const { dialogContainer, showPopoverComponents } = this;
     return html`
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+      />
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0"
+      />
       <h1 style="text-align: center">
         Investigating alternative overlay systems
       </h1>

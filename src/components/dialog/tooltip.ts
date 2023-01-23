@@ -7,7 +7,10 @@ import { PositioningMixin } from "../../mixins/positioning.mixin";
 @customElement("ds-tooltip")
 export class Tooltip extends PositioningMixin(LitElement) {
   @state()
-  isHovering: boolean;
+  isHovering: boolean = false;
+
+  @state()
+  isOpen: boolean = false;
 
   @property()
   positioning: "absolute" | "fixed" = "absolute";
@@ -19,12 +22,6 @@ export class Tooltip extends PositioningMixin(LitElement) {
   content: HTMLElement;
 
   static styles = css`
-    .invoker {
-      width: 20px;
-      height: 20px;
-      border: 1px solid red;
-      position: relative;
-    }
 
     .content {
       /* use position fixed to paint over an overflow hidden parent */
@@ -32,6 +29,8 @@ export class Tooltip extends PositioningMixin(LitElement) {
       margin: 0;
       padding: 5px;
       position: absolute;
+      top: 0;
+      left: 0;
     }
   `;
 
@@ -42,6 +41,7 @@ export class Tooltip extends PositioningMixin(LitElement) {
     const invoker = slots[0];
     this.computeTooltipPosition(invoker, this.content);
     this.isHovering = true;
+    // this.showTooltip();
   }
 
   leaveHandler() {
