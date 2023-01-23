@@ -37,18 +37,23 @@ export class SideNav extends LitElement {
     }
   `;
 
+  openMenu() {
+    console.log('opening menu')
+  }
+
   render() {
     return html`
       <button @click=${() => this.sidenav.showModal()}>Open Nav</button>
       <dialog id="sidenav">
         <div class="sidenav__container">
           <div class="sidenav__apps">
-            <ds-tooltip>
+            <ds-tooltip positioning="fixed">
               <svg slot="invoker"
                 viewBox="0 0 64 64"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 stroke="#000000"
+                @click=${this.openMenu}
               >
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g

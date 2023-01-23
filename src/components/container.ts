@@ -29,9 +29,7 @@ export class Container extends LitElement {
     </ds-tooltip>
 
     <h2>Modal dialog</h2>
-    <ds-dialog>
-      
-    </ds-dialog>
+    <ds-dialog> </ds-dialog>
 
     <br />
 
@@ -40,7 +38,7 @@ export class Container extends LitElement {
     <ds-dialog>
       <div slot="content">
         <p>YOLO</p>
-        <ds-tooltip positioning="fixed">
+        <ds-tooltip>
           <p>tooltip 1</p>
           <ds-tooltip>
             <p>tooltip 2</p>
@@ -55,7 +53,7 @@ export class Container extends LitElement {
     <ds-popup>
       <div>
         <p>Here is my super cool popup.</p>
-        <ds-tooltip positioning="fixed"><p>tooltip</p></ds-tooltip>
+        <ds-tooltip></ds-tooltip>
       </div>
     </ds-popup>
 

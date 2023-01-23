@@ -29,7 +29,7 @@ export class Popup extends LitElement {
       /* use position fixed to paint over an overflow hidden parent */
       /* position: fixed; */
       overflow: hidden;
-      transform: translateZ(0);
+      /* transform: translateZ(0); */
     }
   `;
 

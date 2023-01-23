@@ -13,7 +13,7 @@ export class Tooltip extends PositioningMixin(LitElement) {
   isOpen: boolean = false;
 
   @property()
-  positioning: "absolute" | "fixed" = "absolute";
+  positioning: "absolute" | "fixed" = "fixed";
 
   @query(".invoker")
   invoker: HTMLElement;
@@ -25,10 +25,9 @@ export class Tooltip extends PositioningMixin(LitElement) {
 
     .content {
       /* use position fixed to paint over an overflow hidden parent */
-      /* position: fixed; */
+      position: fixed;
       margin: 0;
       padding: 5px;
-      position: absolute;
       top: 0;
       left: 0;
     }
